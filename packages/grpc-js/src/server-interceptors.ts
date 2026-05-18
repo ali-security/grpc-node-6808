@@ -747,7 +747,7 @@ export class BaseServerInterceptingCall
         decompresser.on('error', (error: Error) => {
           reject({
             code: Status.INTERNAL,
-            details: `Failed to decompress ${encoding}-encoded message`
+            details: 'Failed to decompress message'
           });
         });
         decompresser.on('data', (chunk: Buffer) => {
