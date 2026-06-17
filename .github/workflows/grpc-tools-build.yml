@@ -4,17 +4,19 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
     branches:
       - master
 
+      - main
 permissions:
   contents: read #  to fetch code (actions/checkout)
 
 jobs:
   linux_build:
     name: Linux grpc-tools Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,7 +31,7 @@ jobs:
           path: artifacts/
   macos_build:
     name: Macos grpc-tools Build
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v2
         with:
@@ -42,7 +44,7 @@ jobs:
           path: artifacts/
   windows_build:
     name: Windows grpc-tools Build
-    runs-on: windows-latest
+    runs-on: windows-2025
     strategy:
       matrix:
         arch: [ia32, x64]
@@ -61,7 +63,7 @@ jobs:
           path: artifacts/
   combine_artifacts:
     name: Combine grpc-tools artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [linux_build, macos_build, windows_build]
     steps:
       - uses: actions/download-artifact@v4
